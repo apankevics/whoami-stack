@@ -1,4 +1,5 @@
-# AWS
+# Wandoo
+
 Repository used for Wandoo task:
 
 ![Image](https://github.com/user-attachments/assets/7d44e586-141e-46b3-9253-c0a497fa4104)
