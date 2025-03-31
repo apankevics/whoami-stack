@@ -1,0 +1,71 @@
+fail_fast: true
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0 #v4.1.0
+    hooks:
+    - id: check-yaml
+      exclude: \/chart\/|\/templates\/|\/crds\/
+    - id: end-of-file-fixer
+    - id: trailing-whitespace
+    - id: forbid-new-submodules
+    - id: check-added-large-files
+    - id: mixed-line-ending
+    - id: detect-aws-credentials
+      args:
+      - --allow-missing-credentials
+    - id: fix-byte-order-marker
+    - id: no-commit-to-branch # Prevent commits on master directly
+      args:
+      - --branch
+      - main
+    - id: trailing-whitespace
+
+  - repo: https://github.com/Lucas-C/pre-commit-hooks
+    rev: v1.5.5 # v1.1.13
+    hooks:
+      - id: forbid-crlf
+      - id: remove-crlf
+
+  - repo: https://github.com/jumanjihouse/pre-commit-hooks
+    rev: 3.0.0 #v2.1.16
+    hooks:
+      - id: forbid-binary
+        #  exclude: \.tgz$
+      - id: shellcheck # Needs shellcheck: https://github.com/koalaman/shellcheck
+      - id: shfmt # Needs shfmt: https://github.com/mvdan/sh/releases
+
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: de816af0fa1e042a4eaaa357b4e508fd39aa2a2c  # frozen: v1.94.1
+    hooks:
+      - id: terraform_validate
+        exclude: \/.terraform\/|\/.terragrunt-cache\/
+        stages: [commit]
+        # files: '^terraform/'
+        args:
+          - --hook-config=--parallelism-limit=1
+          - --hook-config=--retry-once-with-cleanup=true
+          - --tf-init-args=-upgrade
+      - id: terraform_fmt
+        exclude: \/.terraform\/|\/.terragrunt-cache\/
+        stages: [commit]
+        # files: '^terraform/'
+        args:
+          - --args=-no-color
+          - --args=-diff
+          - --args=-write=true
+
+    # Internal checks
+  - repo: local
+    hooks:
+      # - id: terraform_docs_recursive
+      #   name: Generate terraform docs recursive
+      #   description: Generate terraform docs recursive for all README.md
+      #   entry: pre_commit_hooks/terraform_docs_recursive.sh
+      #   language: script
+      #   pass_filenames: false
+      - id: angular_commit_message
+        name: Check angular commit message style
+        description: Check commit messages are following angular commit style
+        entry: pre_commit_hooks/angular_commit_msg.py
+        language: script
+        stages: [commit-msg]
