@@ -46,7 +46,7 @@ Before deploying the stack, ensure the following:
    Update a `setup.env` file for the following variables:
      ```
      VIRTUAL_HOST=your-domain.duckdns.org
-     DUCKDNS_TOKEN=your-duckdns-token
+     DuckDNS_Token=your-duckdns-token
      DEFAULT_EMAIL=your-email@example.com
      ```
 
