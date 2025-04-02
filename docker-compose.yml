@@ -15,7 +15,7 @@ services:
     networks:
       - private_subnet
     expose:
-      - 80
+      - 8080
     restart: always
 
   # Service: Nginx-Proxy (Reverse Proxy)
