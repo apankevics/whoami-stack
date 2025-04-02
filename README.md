@@ -40,7 +40,8 @@ Before deploying the stack, ensure the following:
 ### Deployment Steps
 
 1. **Clone the Repository**:
-   Download or clone the repository containing the `docker-compose.yml` file and supporting scripts.
+   - Download or clone the repository containing the `docker-compose.yml` file and supporting scripts.
+   - Change permissions for scripts:  `chmod +x ./scripts/*.sh`
 
 2. **Prepare Stack Configuration**:
    Update a `setup.env` file for the following variables:
@@ -63,19 +64,20 @@ If you want more control over stack startup, you can create a Systemd service to
 
     - Create a Systemd service file, e.g., `/etc/systemd/system/whoami-stack.service`:
     ```
-    [Unit]
-    Description=Whoami Docker Stack
-    Requires=docker.service
-    After=docker.service
+   [Unit]
+   Description=Whoami Docker Stack
+   Requires=docker.service
+   After=docker.service
 
-    [Service]
-    Restart=always
-    WorkingDirectory=/path/to/your/docker-compose.yml
-    ExecStart=/usr/local/bin/docker-compose up -d
-    ExecStop=/usr/local/bin/docker-compose down
+   [Service]
+   Type=oneshot
+   RemainAfterExit=true
+   WorkingDirectory=/path/to/whoami-stack/
+   ExecStart=docker-compose up -d
+   ExecStop=docker-compose down
 
-    [Install]
-    WantedBy=multi-user.target
+   [Install]
+   WantedBy=multi-user.target
     ```
 
     - Enable and start the service:
