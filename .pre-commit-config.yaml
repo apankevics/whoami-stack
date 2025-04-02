@@ -25,7 +25,7 @@ repos:
     rev: 3.0.0 #v2.1.16
     hooks:
       - id: forbid-binary
-        #  exclude: \.tgz$
+        exclude: \.png$
       - id: shellcheck # Needs shellcheck: https://github.com/koalaman/shellcheck
       - id: shfmt # Needs shfmt: https://github.com/mvdan/sh/releases
 

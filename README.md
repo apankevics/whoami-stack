@@ -16,7 +16,7 @@ The stack consists of the following components:
 
 Below is the architecture diagram:
 
-![Whoami Stack Architecture](./whoami-stack.svg)
+![Whoami Stack Architecture](./whoami-stack.png)
 
 
 ## Deployment
